@@ -1,0 +1,35 @@
+environment: dev
+
+replicaCount: 1
+
+image:
+  repository: postgres
+  pullPolicy: IfNotPresent
+  tag: "16-alpine"
+
+service:
+  type: ClusterIP
+  port: 5432
+  targetPort: 5432
+
+ingress:
+  enabled: false
+  className: kong
+  hosts:
+    - host: dev-db.axion.local
+      paths:
+        - path: /
+          pathType: Prefix
+
+env:
+  POSTGRES_DB: "axion_db"
+  POSTGRES_USER: "axion_user"
+  POSTGRES_PASSWORD: "Axiondb@1234"
+
+resources:
+  requests:
+    cpu: 250m
+    memory: 256Mi
+  limits:
+    cpu: 1000m
+    memory: 1Gi

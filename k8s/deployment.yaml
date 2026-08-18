@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: axion-db
+  labels:
+    app: axion-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: axion-db
+  template:
+    metadata:
+      labels:
+        app: axion-db
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:16-alpine
+          ports:
+            - containerPort: 5432
+              name: postgres
+          env:
+            - name: POSTGRES_DB
+              value: "axion_db"
+            - name: POSTGRES_USER
+              value: "axion_user"
+            - name: POSTGRES_PASSWORD
+              value: "Axiondb@1234"
+          resources:
+            requests:
+              cpu: 250m
+              memory: 256Mi
+            limits:
+              cpu: 1000m
+              memory: 1Gi

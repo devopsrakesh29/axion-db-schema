@@ -1,0 +1,6 @@
+apiVersion: v2
+name: axion-db-schema
+description: Helm chart for Axion PostgreSQL Database
+type: application
+version: 0.1.0
+appVersion: "16.0"

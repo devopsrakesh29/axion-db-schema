@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: axion-db-ingress
+  annotations:
+    konghq.com/plugins: rate-limiting-plugin, cors-plugin
+spec:
+  ingressClassName: kong
+  rules:
+    - host: db.axion.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: axion-db-service
+                port:
+                  number: 5432
